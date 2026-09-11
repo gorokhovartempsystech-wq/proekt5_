@@ -1,0 +1,13 @@
+services:
+  er-api:
+    build: .
+    image: clearpic-er:1.0
+    ports:
+      - "8000:8000"
+    environment:
+      # Путь к parquet с именами для индекса поиска (/search).
+      # Без него работают /check_duplicate и /deduplicate_batch.
+      ER_INDEX: ${ER_INDEX:-}
+    volumes:
+      - ./work:/app/work:ro
+    restart: unless-stopped
